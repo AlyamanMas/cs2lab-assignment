@@ -38,6 +38,8 @@ private slots:
 
     void on_stlsort_pb_clicked();
 
+    void on_findit_pb_clicked();
+
 private:
     Ui::MainWindow *ui;
     std::vector<int> list;

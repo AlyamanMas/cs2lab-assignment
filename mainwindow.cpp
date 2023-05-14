@@ -183,3 +183,30 @@ void MainWindow::on_stlsort_pb_clicked()
     this->refresh_list_listwidget();
 }
 
+
+void MainWindow::on_findit_pb_clicked()
+{
+    switch (this->search_method) {
+        case SearchMethod::Normal: {
+            auto before = std::chrono::steady_clock::now();
+            int found_index = util::flat_search(this->list, ui->numbertofind_te->toPlainText().toInt());
+            auto after = std::chrono::steady_clock::now();
+
+            this->find_time = std::chrono::duration_cast<std::chrono::nanoseconds>(after - before).count();
+
+            this->display_qmessage(found_index != -1);
+            break;
+        }
+        case SearchMethod::Binary: {
+            auto before = std::chrono::steady_clock::now();
+            int found_index = util::binary_search(this->list, ui->numbertofind_te->toPlainText().toInt());
+            auto after = std::chrono::steady_clock::now();
+
+            this->find_time = std::chrono::duration_cast<std::chrono::nanoseconds>(after - before).count();
+
+            this->display_qmessage(found_index != -1);
+            break;
+        }
+    }
+}
+
