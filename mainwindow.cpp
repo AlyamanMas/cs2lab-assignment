@@ -117,6 +117,8 @@ void MainWindow::on_binarysearch_pb_clicked()
 
 void MainWindow::on_mergesort_pb_clicked()
 {
+    ui->sortedusing_label->setText("Sorting Using: Merge Sort");
+
     util::merge_sort(this->list);
     this->refresh_list_listwidget();
 }
@@ -124,6 +126,8 @@ void MainWindow::on_mergesort_pb_clicked()
 
 void MainWindow::on_stlsort_pb_clicked()
 {
+    ui->sortedusing_label->setText("Sorting Using: STL Sort");
+
     std::sort(this->list.begin(), this->list.end());
     this->refresh_list_listwidget();
 }
