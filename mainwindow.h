@@ -48,5 +48,7 @@ private:
 
     void refresh_list_listwidget();
     void refresh_search_method();
+
+    void display_qmessage(bool found);
 };
 #endif // MAINWINDOW_H

@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <QMessageBox>
+
 #include <iostream>
 #include <vector>
 #include <random>
@@ -60,6 +62,45 @@ namespace util {
         }
         vec = result;
     }
+    int flat_search(vector<int> vec, int target) {
+        for (int i = 0; i < vec.size(); i++) {
+            if (vec[i] == target) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    int binary_search(vector<int> vec, int target) {
+        int left = 0;
+        int right = vec.size() - 1;
+        while (left <= right) {
+            int middle = (left + right) / 2;
+            if (vec[middle] == target) {
+                return middle;
+            } else if (vec[middle] < target) {
+                left = middle + 1;
+            } else {
+                right = middle - 1;
+            }
+        }
+        return -1;
+    }
+}
+
+void MainWindow::display_qmessage(bool found) {
+    QMessageBox msg_box;
+    if (found)
+            msg_box.setText(
+                QString::fromStdString(
+                std::string("The item exists in the list and the time needed to find it in Nanoseconds is: ") + std::to_string(this->find_time)
+                    + std::string("\nSorting time was: ") + std::to_string(this->sort_time)));
+    else
+            msg_box.setText(
+                QString::fromStdString(
+                std::string("The item was not found :( the time consumed searching for it in Nanoseconds is: ") + std::to_string(this->find_time)
+                    + std::string("\nSorting time was: ") + std::to_string(this->sort_time)));
+
+    msg_box.exec();
 }
 
 void MainWindow::refresh_list_listwidget() {
