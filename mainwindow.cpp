@@ -20,13 +20,46 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-bool check_if_sorted(vector<int> vec) {
-    for (int i = 0; i < vec.size() - 1; i++) {
-        if (vec[i] > vec[i + 1]) {
-            return false;
+namespace util {
+    bool check_if_sorted(vector<int> vec) {
+        for (int i = 0; i < vec.size() - 1; i++) {
+            if (vec[i] > vec[i + 1]) {
+                return false;
+            }
         }
+        return true;
     }
-    return true;
+    void merge_sort(vector<int> &vec) {
+        if (vec.size() <= 1) {
+            return;
+        }
+        int middle = vec.size() / 2;
+        vector<int> left(vec.begin(), vec.begin() + middle);
+        vector<int> right(vec.begin() + middle, vec.end());
+        merge_sort(left);
+        merge_sort(right);
+        vector<int> result;
+        int left_index = 0;
+        int right_index = 0;
+        while (left_index < left.size() && right_index < right.size()) {
+            if (left[left_index] < right[right_index]) {
+                result.push_back(left[left_index]);
+                left_index++;
+            } else {
+                result.push_back(right[right_index]);
+                right_index++;
+            }
+        }
+        while (left_index < left.size()) {
+            result.push_back(left[left_index]);
+            left_index++;
+        }
+        while (right_index < right.size()) {
+            result.push_back(right[right_index]);
+            right_index++;
+        }
+        vec = result;
+    }
 }
 
 void MainWindow::refresh_list_listwidget() {
@@ -40,7 +73,7 @@ void MainWindow::refresh_list_listwidget() {
 
     ui->datasetsizedisplay_label->setText("The dataset size is: " + QString::number(this->list.size()));
 
-    if (check_if_sorted(this->list)) {
+    if (util::check_if_sorted(this->list)) {
         ui->sortedornot_label->setText("Sorted!");
     } else {
         ui->sortedornot_label->setText("Not Sorted :(");
@@ -79,5 +112,19 @@ void MainWindow::on_binarysearch_pb_clicked()
 {
     this->search_method = SearchMethod::Binary;
     this->refresh_search_method();
+}
+
+
+void MainWindow::on_mergesort_pb_clicked()
+{
+    util::merge_sort(this->list);
+    this->refresh_list_listwidget();
+}
+
+
+void MainWindow::on_stlsort_pb_clicked()
+{
+    std::sort(this->list.begin(), this->list.end());
+    this->refresh_list_listwidget();
 }
 

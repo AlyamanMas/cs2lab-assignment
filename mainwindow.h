@@ -33,6 +33,10 @@ private slots:
 
     void on_binarysearch_pb_clicked();
 
+    void on_mergesort_pb_clicked();
+
+    void on_stlsort_pb_clicked();
+
 private:
     Ui::MainWindow *ui;
     std::vector<int> list;
