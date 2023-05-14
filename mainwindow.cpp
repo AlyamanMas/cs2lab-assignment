@@ -20,6 +20,16 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::refresh_list_listwidget() {
+    QList<QString> strings;
+    for(int i : this->list) {
+        strings.append(QString::fromStdString(to_string(i)));
+    }
+
+    ui->arraylist_listwidget->clear();
+    ui->arraylist_listwidget->insertItems(0, strings);
+}
+
 
 void MainWindow::on_generatedataset_pb_clicked()
 {
@@ -33,12 +43,6 @@ void MainWindow::on_generatedataset_pb_clicked()
         this->list.push_back(rand() % 10000);
     }
 
-    QList<QString> strings;
-    for(int i : this->list) {
-        strings.append(QString::fromStdString(to_string(i)));
-    }
-
-    ui->arraylist_listwidget->clear();
-    ui->arraylist_listwidget->insertItems(0, strings);
+    refresh_list_listwidget();
 }
 

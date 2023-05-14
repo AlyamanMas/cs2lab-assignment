@@ -21,5 +21,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     std::vector<int> list;
+
+    void refresh_list_listwidget();
 };
 #endif // MAINWINDOW_H
