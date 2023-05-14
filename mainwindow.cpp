@@ -20,6 +20,15 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+bool check_if_sorted(vector<int> vec) {
+    for (int i = 0; i < vec.size() - 1; i++) {
+        if (vec[i] > vec[i + 1]) {
+            return false;
+        }
+    }
+    return true;
+}
+
 void MainWindow::refresh_list_listwidget() {
     QList<QString> strings;
     for(int i : this->list) {
@@ -30,6 +39,12 @@ void MainWindow::refresh_list_listwidget() {
     ui->arraylist_listwidget->insertItems(0, strings);
 
     ui->datasetsizedisplay_label->setText("The dataset size is: " + QString::number(this->list.size()));
+
+    if (check_if_sorted(this->list)) {
+        ui->sortedornot_label->setText("Sorted!");
+    } else {
+        ui->sortedornot_label->setText("Not Sorted :(");
+    }
 }
 
 void MainWindow::refresh_search_method() {
