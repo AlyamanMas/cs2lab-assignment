@@ -119,7 +119,12 @@ void MainWindow::on_mergesort_pb_clicked()
 {
     ui->sortedusing_label->setText("Sorting Using: Merge Sort");
 
+    auto before = std::chrono::steady_clock::now();
     util::merge_sort(this->list);
+    auto after = std::chrono::steady_clock::now();
+
+    this->sort_time = std::chrono::duration_cast<std::chrono::nanoseconds>(after - before).count();
+
     this->refresh_list_listwidget();
 }
 
@@ -128,7 +133,12 @@ void MainWindow::on_stlsort_pb_clicked()
 {
     ui->sortedusing_label->setText("Sorting Using: STL Sort");
 
+    auto before = std::chrono::steady_clock::now();
     std::sort(this->list.begin(), this->list.end());
+    auto after = std::chrono::steady_clock::now();
+
+    this->sort_time = std::chrono::duration_cast<std::chrono::nanoseconds>(after - before).count();
+
     this->refresh_list_listwidget();
 }
 

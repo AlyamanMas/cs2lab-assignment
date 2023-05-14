@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <string>
+#include <chrono>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -41,6 +42,9 @@ private:
     Ui::MainWindow *ui;
     std::vector<int> list;
     SearchMethod search_method = SearchMethod::Binary;
+    // Both of the below values are supposed to be in nanoseconds
+    unsigned long sort_time;
+    unsigned long find_time;
 
     void refresh_list_listwidget();
     void refresh_search_method();
