@@ -28,6 +28,12 @@ void MainWindow::refresh_list_listwidget() {
 
     ui->arraylist_listwidget->clear();
     ui->arraylist_listwidget->insertItems(0, strings);
+
+    ui->datasetsizedisplay_label->setText("The dataset size is: " + QString::number(this->list.size()));
+}
+
+void MainWindow::refresh_search_method() {
+    ui->usingsearch_label->setText(QString::fromStdString("Searching with: " + search_method_strings[this->search_method] + " Search"));
 }
 
 
@@ -40,9 +46,23 @@ void MainWindow::on_generatedataset_pb_clicked()
     srand(time(NULL));
     this->list.clear();
     for (int i = 0; i < datasetSize; i++) {
-        this->list.push_back(rand() % 10000);
+        this->list.push_back(rand() % 1000);
     }
 
     refresh_list_listwidget();
+}
+
+
+void MainWindow::on_normalsearch_pb_clicked()
+{
+    this->search_method = SearchMethod::Normal;
+    this->refresh_search_method();
+}
+
+
+void MainWindow::on_binarysearch_pb_clicked()
+{
+    this->search_method = SearchMethod::Binary;
+    this->refresh_search_method();
 }
 
